@@ -11,5 +11,5 @@ if __name__ == "__main__":
     image = imageio.imread("https://upload.wikimedia.org/wikipedia/en/7/7d/Lenna_%28test_image%29.png")
     ia.seed(6)
     gaus = iaa.AdditiveGaussianNoise(scale=(10,80))
-    images_aug = gaus.augment_image()
+    images_aug = gaus.augment_image(image)
     ia.imshow(images_aug)
