@@ -1,0 +1,21 @@
+1. AddGaussianNoise(L{float}, S{float}, PCH{boolean}), Adds white/gaussian noise pixelwise to an image. The noise comes from the normal distribution N(L,S). If PCH is true, then the sampled values may be different per channel (and pixel).
+
+2. AdditivePoissonNoise(L{float}, PCH{boolean}), Adds noise sampled from a poisson distribution with L being the lambda exponent. If PCH is true, then the sampled values may be different per channel (and pixel).
+
+3. SaltAndPepper(P{float (0, 1)}, PCH{boolean}), Replaces P percent of all pixels with very white or black colors. If PCH is true, then different pixels will be replaced per channel.
+
+4. JpegCompression(C{float}), Applies JPEG compression of strength C (value range: 0 to 100) to an image. Higher values of C lead to more visual artifacts.
+
+5. GaussianBlur(S{float}), Blurs images using a gaussian kernel with size S.
+
+6. MotionBlur(K{int}, A{int (0, 360)}, D{float(-1, 1)}, O{int 0 or 1}), Blurs an image using a motion blur kernel with size K. A is the angle of the blur in degrees to the y-axis (value range: 0 to 360, clockwise). D is the blur direction (value range: -1.0 to 1.0, 1.0 is forward from the center). O is the interpolation order (O=0 is fast, O=1 slightly slower but more accurate).
+
+7. AddToHueAndSaturation(V{int}, PCH{boolean}, Adds value V to each pixel in HSV space (i.e. modifying hue and saturation). If PCH is true, then the sampled values may be different per channel.
+
+8. SigmoidContrast(G{float}, C{float (0, 1)}, PCH{boolean}), Similar to GammaContrast, but applies I_ij' = 1/(1 + exp(G' * (C' - I_ij))), where G' is a gain value sampled from G and C' is a cutoff value sampled from C.
+
+9. ElasticTransformation(S{int}, SM{int}, O{int (0, 5)}, CVAL{int}), Moves each pixel individually around based on distortion fields. SM defines the smoothness of the distortion field and S its strength. O is the interpolation order, CVAL a constant fill value for newly created pixels (see also augmenter Affine).
+
+10. Superpixels(P(0<P<1 float), N(int), M(int)), Generates N superpixels of the image at (max) resolution M and resizes back to the original size. Then P percent of all superpixel areas in the original image are replaced by the superpixel. (1-P) percent remain unaltered.
+
+11. Fog(), Adds fog-like cloud structures of various shapes and densities to images. Can be senseful to be combined with an overlay augmenter, e.g. SimplexNoiseAlpha.
