@@ -4,6 +4,7 @@ import sys
 image = imageio.imread("C:\GANC\pictures\pic_1.jpg")
 from imgaug import augmenters as iaa
 ia.seed(6)
+
 def main():
 	args = sys.argv[1:]
 	if len(args) == 0:
