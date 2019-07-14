@@ -1,5 +1,13 @@
+
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import tensorflow as tf
+
+import os
+import time
 import matplotlib.pyplot as plt
+from IPython.display import clear_output
+
 OUTPUT_CHANNELS = 3
 
 
