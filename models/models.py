@@ -1,3 +1,14 @@
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+!pip install -q tensorflow-gpu==2.0.0-beta1
+import tensorflow as tf
+
+import os
+import time
+import matplotlib.pyplot as plt
+from IPython.display import clear_output
+
+
 OUTPUT_CHANNELS = 3
 def downsample(filters, size, apply_batchnorm=True):
   initializer = tf.random_normal_initializer(0., 0.02)
