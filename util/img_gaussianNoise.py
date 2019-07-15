@@ -1,8 +1,9 @@
 import imageio
 import imgaug as ia
 import sys
-image = imageio.imread("..\pictures\pic_1.jpg")
+from PIL import Image
 from imgaug import augmenters as iaa
+
 ia.seed(6)
 
 def main():
@@ -100,7 +101,22 @@ def main():
 			raise Exception('Wrong numbers of variables. Should have 3')
 		else:
 			func = iaa.Fog()
-	images_aug = func.augment_image(image)
-	ia.imshow(images_aug)
+	return func
+
+def the_noiser():
+	noiser = main()
+	x = 0
+	while x < 5000:
+		try:
+			image = imageio.imread("..\pictures\Image" + str(x) + ".jpg")
+			noised_image = noiser.augment_image(image)
+			print(noised_image.shape)
+			imageio.imwrite("../noised_images/" + "noised_image" + str(x) + ".jpg", noised_image)
+		except:
+			x = x + 1
+			continue
+		x = x + 1
+
 if __name__ == "__main__":
-	main()
+	the_noiser()
+
