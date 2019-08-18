@@ -255,10 +255,10 @@ def train_step(input_image, target):
   discriminator_gradients = disc_tape.gradient(disc_loss,
                                                discriminator.trainable_variables)
 
-  #generator_optimizer.apply_gradients(zip(generator_gradients,
-                                         # generator.trainable_variables))
-  #discriminator_optimizer.apply_gradients(zip(discriminator_gradients,
-                                          #    discriminator.trainable_variables))
+  generator_optimizer.apply_gradients(zip(generator_gradients,
+                                          generator.trainable_variables))
+  discriminator_optimizer.apply_gradients(zip(discriminator_gradients,
+                                              discriminator.trainable_variables))
 def train(dataset, epochs):
   for epoch in range(epochs):
     start = time.time()
@@ -321,10 +321,10 @@ def main():
   #establish checkpoint
   checkpoint_dir = './training_checkpoints'
   checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
-  #checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
-                                 #  discriminator_optimizer=discriminator_optimizer,
-                                  # generator=generator,
-                                  # discriminator=discriminator)
+  checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
+                                   discriminator_optimizer=discriminator_optimizer,
+                                   generator=generator,
+                                   discriminator=discriminator)
   train(train_dataset, EPOCHS)
 
 
