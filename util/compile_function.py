@@ -42,4 +42,5 @@ def compile_pictures(image_dir, n_image_dir):
     return image_files_compiled, image_files_name
 
 compiled_list = compile_pictures(IMG_DIR, N_IMG_DIR)
+np.save('../data/npy/gaussian_data.npy', compiled_list)
 print(compiled_list)
