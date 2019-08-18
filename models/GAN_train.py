@@ -18,6 +18,8 @@ loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
 discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
 
+generator = Generator()
+discriminator = Discriminator()
 
 checkpoint_dir = './training_checkpoints'
 checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
@@ -26,19 +28,6 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                      generator=generator,
                                      discriminator=discriminator)
 
-generator = Generator()
-discriminator = Discriminator()
-
-
-#################################################################################################################
-# loss function and optimizer
-##################################################################################################################
-
-
-
-###############################################################################################################
-# training
-################################################################################################################
 def generate_images(model, test_input, tar):
     # the training=True is intentional here since
     # we want the batch statistics while running the model
@@ -59,9 +48,6 @@ def generate_images(model, test_input, tar):
         plt.axis('off')
     plt.show()
 
-
-# define two global variables
-# build the generator
 
 
 def train_step(input_image, target):
@@ -116,10 +102,6 @@ def main():
         y = tf.cast(y, tf.float32)
         train_lst.append((x, y))
     train_dataset = train_lst
-    # train_dataset = train_dataset.shuffle(BUFFER_SIZE)
-    # train_dataset = train_dataset.map(load_image_train,
-    #                                   num_parallel_calls=tf.data.experimental.AUTOTUNE)
-    # train_dataset = train_dataset.batch(1)
 
     test_lst = []
     for _ in range(10):
@@ -130,16 +112,6 @@ def main():
         y.astype('float32')
         y = tf.cast(y, tf.float32)
         test_lst.append((x, y))
-    test_dataset = test_lst
-    # shuffling so that for every epoch a different image is generated
-    # to predict and display the progress of our model.
-    # train_dataset = train_dataset.shuffle(BUFFER_SIZE)
-    # test_dataset = test_dataset.map(load_image_test)
-    # test_dataset = test_dataset.batch(1)
-
-    # loss function
-
-    # establish checkpoint
 
     train(train_dataset, EPOCHS)
 

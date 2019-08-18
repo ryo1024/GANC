@@ -1,12 +1,13 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 import tensorflow as tf
-import os
-import time
-import matplotlib.pyplot as plt
-import numpy as np
 
-
+BUFFER_SIZE = 400
+BATCH_SIZE = 1
+IMG_WIDTH = 256
+IMG_HEIGHT = 256
+OUTPUT_CHANNELS = 3
 LAMBDA = 100
+EPOCHS = 150
 
 loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
