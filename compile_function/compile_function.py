@@ -22,5 +22,5 @@ def compile_pictures(image_dir, n_image_dir):
             image_files_compiled += [arrayed_images_list]
     return image_files_compiled
 
-print(IMG_DIR)
+
 print(compile_pictures(IMG_DIR, N_IMG_DIR))
