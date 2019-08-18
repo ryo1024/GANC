@@ -1,8 +1,6 @@
 import cv2
-from PIL import Image
 import os
 from sklearn.preprocessing import normalize
-import numpy as np
 
 IMG_DIR = os.path.abspath(os.path.dirname(__file__)) + '/images_cropped/'
 N_IMG_DIR = os.path.abspath(os.path.dirname(__file__)) + '/noised_images_cropped/'
@@ -12,8 +10,6 @@ def compile_pictures(image_dir, n_image_dir):
     n_image_file_sorted = []
     dim_stored_list = []
     dim_stored_list2 = []
-    image_files_compiled = []
-    image_files_name = []
     for root, dirs, files in os.walk(image_dir):
         files.remove(".DS_Store")
         for name in sorted(files):
@@ -29,7 +25,7 @@ def compile_pictures(image_dir, n_image_dir):
             n_image_file_sorted += [n_name]
             arrayedimage2 = cv2.imread(n_image_dir + n_name)
             arrayedimage2_reshaped = arrayedimage2.reshape(768, 256)
-            normalized_image2 = normalize(arrayedimage_reshaped)
+            normalized_image2 = normalize(arrayedimage2_reshaped)
             dimension_stored_image2 = normalized_image2.reshape(256, 256, 3)
             dim_stored_list2.append(dimension_stored_image2)
 
