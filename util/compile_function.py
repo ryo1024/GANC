@@ -33,7 +33,7 @@ def compile_pictures(image_dir, n_image_dir):
             dim_stored_list2.append(dimension_stored_image2)
 
     image_files_name = np.array([[x, y] for (x, y) in zip(image_file_sorted, n_image_file_sorted)])
-    image_files_compiled = np.array([[x, y] for (x, y) in zip(dim_stored_list, dim_stored_list2)])
+    image_files_compiled = np.array([[[x], [y]] for (x, y) in zip(dim_stored_list, dim_stored_list2)])
 
     for pair in image_files_name:
         if not pair[0][7:11] == pair[1][14:18]:
@@ -42,5 +42,5 @@ def compile_pictures(image_dir, n_image_dir):
     return image_files_compiled, image_files_name
 
 compiled_list = compile_pictures(IMG_DIR, N_IMG_DIR)
-np.save('../data/npy/gaussian_data.npy', compiled_list)
+np.save('../data/npy/gaussian_data.npy', compiled_list[0])
 print(compiled_list)

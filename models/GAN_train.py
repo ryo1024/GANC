@@ -103,15 +103,9 @@ def main():
         train_lst.append((x, y))
     train_dataset = train_lst
 
-    test_lst = []
-    for _ in range(10):
-        x = np.random.sample(size=(4, 4, 3, 64))
-        x.astype('float32')
-        x = tf.cast(x, tf.float32)
-        y = np.random.sample(size=(4, 4, 3, 64))
-        y.astype('float32')
-        y = tf.cast(y, tf.float32)
-        test_lst.append((x, y))
+    train_dataset = np.load('../data/npy/gaussian_data.npy').astype(np.float32)
+
+    print("loading numpy done!!")
 
     train(train_dataset, EPOCHS)
 
