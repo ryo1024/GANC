@@ -2,6 +2,7 @@ import cv2
 import os
 from sklearn.preprocessing import normalize
 import numpy as np
+import h5py
 
 IMG_DIR = '../data/images_cropped/'
 N_IMG_DIR = '../data/gaussian_noised_images_cropped/'
@@ -42,5 +43,8 @@ def compile_pictures(image_dir, n_image_dir):
     return image_files_compiled, image_files_name
 
 compiled_list = compile_pictures(IMG_DIR, N_IMG_DIR)
-np.save('../data/npy/gaussian_data.npy', compiled_list[0])
+#np.save('../data/npy/gaussian_data.npy', compiled_list[0])
+h5f = h5py.File('../h5/data.h5', 'w')
+h5f.create_dataset('gaussian', data=compiled_list[0])
+h5f.close()
 print(compiled_list)

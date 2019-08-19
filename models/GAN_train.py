@@ -5,14 +5,15 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 from models.GAN_model import *
+import h5py
 
 BUFFER_SIZE = 400
-BATCH_SIZE = 1
+BATCH_SIZE = 16
 IMG_WIDTH = 256
 IMG_HEIGHT = 256
 OUTPUT_CHANNELS = 3
 LAMBDA = 100
-EPOCHS = 150
+EPOCHS = 20
 
 loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
@@ -83,7 +84,7 @@ def train(dataset, epochs):
         #   generate_images(generator, inp, tar)
 
         # saving (checkpoint) the model every 20 epochs
-        if (epoch + 1) % 20 == 0:
+        if (epoch + 1) % 5 == 0:
             checkpoint.save(file_prefix = checkpoint_prefix)
 
         print('Time taken for epoch {} is {} sec\n'.format(epoch + 1,
@@ -92,22 +93,20 @@ def train(dataset, epochs):
 
 def main():
     # input pipeline: tarning dataset and test dataset
-    train_lst = []
-    for _ in range(10):
-        x = np.random.sample(size=(1, 256, 256, 3))
-        x.astype(np.float32)
-        x = tf.cast(x, tf.float32)
-        y = np.random.sample(size=(1, 256, 256, 3))
-        y.astype(np.float32)
-        y = tf.cast(y, tf.float32)
-        train_lst.append((x, y))
-    train_dataset = train_lst
 
-    train_dataset = np.load('../data/npy/gaussian_data.npy').astype(np.float32)
+    #train_dataset = np.load('../data/npy/gaussian_data.npy').astype(np.float32)[:100]
+
+    h5f = h5py.File('../data/h5/data.h5', 'r')
+
+    train_dataset = h5f['gaussian'][:]
+
+    h5f.close()
 
     print("loading numpy done!!")
 
-    train(train_dataset, EPOCHS)
+    print("GPU Available: ", tf.test.is_gpu_available())
+
+    train(train_dataset.astype(np.float32), EPOCHS)
 
 
 if __name__ == "__main__":
